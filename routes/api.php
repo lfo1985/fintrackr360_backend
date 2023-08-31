@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\JwtLoginController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -43,11 +43,24 @@ Route::middleware(['jwt.auth'])->group(function(){
     });
 
     Route::controller(UserController::class)->group(function(){
-
         Route::prefix('users')->group(function(){
             Route::get('/', 'index')->name('users.index');
         });
+    });
 
+    Route::controller(GrupoController::class)->group(function(){
+        Route::prefix('grupos')->group(function(){
+            Route::get('/', 'index')->name('grupos.index');
+        });
+        Route::prefix('grupos')->group(function(){
+            Route::get('/search', 'search')->name('grupos.search');
+        });
+        Route::prefix('grupos')->group(function(){
+            Route::post('/', 'store')->name('grupos.store');
+        });
+        Route::prefix('grupos')->group(function(){
+            Route::put('/{grupo}', 'update')->name('grupos.update');
+        });
     });
 
     /**

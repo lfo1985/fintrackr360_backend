@@ -61,6 +61,7 @@ class GrupoRepository {
              * Após a definição dos dados, realiza a gravação. Caso ocorra
              * qualquer Exceção, a requisição não será executada no banco.
              */
+            $grupo->created_by = auth()->user()->id;
             $grupo->save();
             /**
              * Ocorrendo tudo certo na instância da requisição,
