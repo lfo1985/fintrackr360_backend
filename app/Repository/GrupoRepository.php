@@ -78,7 +78,7 @@ class GrupoRepository {
             /**
              * Dispara a exceção.
              */
-            throw new \Exception($e->getMessage(), 1);
+            excecao($e->getMessage(), 1);
         }
     }
     /**
@@ -123,7 +123,7 @@ class GrupoRepository {
             /**
              * dispara a exceção.
              */
-            throw new \Exception($e->getMessage());
+            excecao($e->getMessage());
         }
     }
     /**
@@ -159,7 +159,7 @@ class GrupoRepository {
             /**
              * dispara a exceção.
              */
-            throw new \Exception($e->getMessage());
+            excecao($e->getMessage());
         }
     }
 

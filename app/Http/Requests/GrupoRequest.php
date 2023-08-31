@@ -21,7 +21,7 @@ class GrupoRequest extends Requests {
             /**
              * Retorna exceção
              */
-            self::exception("Nome é obrigatório");
+            excecao("Nome é obrigatório");
         }
     }
     

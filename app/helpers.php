@@ -25,6 +25,10 @@ function exibe($dados){
     return \response()->json($dados);
 }
 
+function excecao($msg){
+    throw new Exception($msg, 1);
+}
+
 function validaEmail($email){
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
