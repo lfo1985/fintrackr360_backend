@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\UnauthorizedException;
 
-class JwtLoginController extends Controller
-{
+class JwtLoginController extends Controller {
+
     public function login(Request $request){
         
         try {
@@ -35,6 +35,21 @@ class JwtLoginController extends Controller
             return erro($e->getMessage(), 401);
         }
 
+    }
+
+    public function logout(){
+        /**
+         * Chama o logout para quebrar o token
+         */
+        auth('api')->logout();
+        /**
+         * Retorna sucesso
+         */
+        return sucesso('OK');
+    }
+
+    public function logged(){
+        return auth()->user();
     }
 
 }

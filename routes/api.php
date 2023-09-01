@@ -24,10 +24,7 @@ Route::controller(JwtLoginController::class)->group(function(){
     /**
      * Realiza o logout de usuário
      */
-    Route::post('/logout', function(){
-        auth('api')->logout();
-        return sucesso('OK');
-    });
+    Route::post('/logout', 'logout');
 });
 
 /**
@@ -35,73 +32,49 @@ Route::controller(JwtLoginController::class)->group(function(){
  * pelos usuários que irão realizar o login do sistema.
  */
 Route::middleware(['jwt.auth'])->group(function(){
-
-    Route::controller(JwtLoginController::class)->group(function(){
-        Route::get('/verifica', function(){
-            return auth()->user();
-        });
-    });
-
+    /**
+     * Rotas para gerenciamento dos usuários
+     */
     Route::controller(UserController::class)->group(function(){
+        /**
+         * Usuários
+         */
         Route::prefix('users')->group(function(){
+            /**
+             * Lista todos os usuários
+             */
             Route::get('/', 'index')->name('users.index');
         });
     });
-
+    /**
+     * Rotas para gerenciamento dos grupos
+     */
     Route::controller(GrupoController::class)->group(function(){
+        /**
+         * Grupos
+         */
         Route::prefix('grupos')->group(function(){
+            /**
+             * Lista todos
+             */
             Route::get('/', 'index')->name('grupos.index');
-        });
-        Route::prefix('grupos')->group(function(){
+            /**
+             * Pesquisa utilizando parâmetros
+             */
             Route::get('/search', 'search')->name('grupos.search');
-        });
-        Route::prefix('grupos')->group(function(){
+            /**
+             * Cria um novo registro
+             */
             Route::post('/', 'store')->name('grupos.store');
-        });
-        Route::prefix('grupos')->group(function(){
+            /**
+             * Atualiza um registro
+             */
             Route::put('/{grupo}', 'update')->name('grupos.update');
+            /**
+             * Apaga um registro
+             */
+            Route::delete('/{grupo}', 'destroy')->name('grupos.destroy');
         });
     });
 
-    /**
-     * Aplicação de rotas agrupadas por entidade.
-     */
-    // Route::controller(ClienteController::class)->group(function(){
-    //     /**
-    //      * Rota para leitura de todos os clientes cadastrados
-    //      */
-    //     Route::prefix('clientes')->group(function(){
-    //         /**
-    //          * Lista todos os clientes
-    //          */
-    //         Route::get('/', 'index')
-    //             ->name('clientes.index');
-    //         /**
-    //          * Lista todos os clientes
-    //          */
-    //         Route::get('/{cliente}', 'find')
-    //             ->name('clientes.find');
-    //         /**
-    //          * Cria um novo cliente
-    //          */
-    //         Route::post('/', 'store')
-    //             ->name('clientes.store');
-    //         /**
-    //          * Atualiza um cliente
-    //          */
-    //         Route::put('/{cliente}', 'update')
-    //             ->name('clientes.update');
-    //         /**
-    //          * Apaga um cliente
-    //          */
-    //         Route::delete('/{cliente}', 'destroy')
-    //             ->name('clientes.destroy');
-    //         /**
-    //          * Atualiza o e-mail do cliente
-    //          */
-    //         Route::patch('/{cliente}', 'updateEmail')
-    //             ->name('clientes.updateEmail');
-    //     });
-    // });
-    
 });
