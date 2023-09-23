@@ -95,7 +95,7 @@ class GrupoController extends Controller
                 'nome' => $grupoRequest->nome
             ], $grupo);
             /**
-             * 
+             * Retorno de sucesso
              */
             return sucesso('Grupo atualizado com sucesso!');
         } catch (\Exception $e) {

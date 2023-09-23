@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler
      */
     public function register(){
         $this->renderable(function (NotFoundHttpException $e, Request $request) {
-            return erro($e->getMessage(), 404);
+            return erro('Rota não encontrada!', 404);
         });
         
         $this->renderable(function (UnauthorizedHttpException $e, Request $request) {

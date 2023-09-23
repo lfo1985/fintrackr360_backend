@@ -59,6 +59,10 @@ Route::middleware(['jwt.auth'])->group(function(){
              */
             Route::get('/', 'index')->name('grupos.index');
             /**
+             * Lista todos
+             */
+            Route::get('/{grupo}', 'find')->name('grupos.find');
+            /**
              * Pesquisa utilizando parâmetros
              */
             Route::get('/search', 'search')->name('grupos.search');
