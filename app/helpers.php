@@ -32,3 +32,19 @@ function excecao($msg){
 function validaEmail($email){
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
+
+function str2dec($valor){
+    if($valor){
+        return (float) str_replace(',', '.', str_replace('.', '', $valor));
+    } else {
+        return null;
+    }
+}
+
+function dec2str($valor, $casasDecimais = 2){
+    if($valor){
+        return (string) number_format($valor, $casasDecimais, ',', '.');
+    } else {
+        return null;
+    }
+}

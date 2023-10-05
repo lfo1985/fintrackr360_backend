@@ -2,10 +2,10 @@
 
 namespace App\Repository;
 
-use App\Models\Grupo;
+use App\Models\Conta;
 use Illuminate\Support\Facades\DB;
 
-class GrupoRepository {
+class ContaRepository {
 
     /**
      * Obtem todos os registros da tabela
@@ -16,21 +16,21 @@ class GrupoRepository {
         /**
          * Retorna todos os registros com paginação
          */
-        return Grupo::paginate();
+        return Conta::paginate();
     }
 
     /**
      * Obtem apenas um registro de acordo com o ID informado
      * 
-     * @param Grupo
-     * @return Grupo $grupo
+     * @param Conta
+     * @return Conta $conta
      */
-    public static function seleciona(Grupo $grupo): Grupo{
+    public static function seleciona(Conta $conta): Conta{
         /**
          * Retorna o objeto da entidade selecionada a partir do id
          * informado via parâmetro.
          */
-        return $grupo;
+        return $conta;
     }
 
     /**
@@ -55,13 +55,13 @@ class GrupoRepository {
              * 
              * Neste momento os dados são preparados para gravação.
              */
-            $grupo = new Grupo($dados);
+            $conta = new Conta($dados);
             /**
              * Após a definição dos dados, realiza a gravação. Caso ocorra
              * qualquer Exceção, a requisição não será executada no banco.
              */
-            $grupo->created_by = auth()->user()->id;
-            $grupo->save();
+            $conta->created_by = auth()->user()->id;
+            $conta->save();
             /**
              * Ocorrendo tudo certo na instância da requisição,
              * realiza o commit para executar de fato a ação no
@@ -84,10 +84,10 @@ class GrupoRepository {
      * Edita o registro da entidade
      * 
      * @param array $dados
-     * @param Grupo $grupo
+     * @param Cliente $cliente
      * @return void
      */
-    public static function edita(array $dados, Grupo $grupo): void{
+    public static function edita(array $dados, Conta $conta): void{
         /**
          * Realiza a tentativa de editar os dados
          */
@@ -102,13 +102,13 @@ class GrupoRepository {
              * da entidade.
              */
             foreach ($dados as $campo => $valor) {
-                $grupo->$campo = $valor;
+                $conta->$campo = $valor;
             }
             /**
              * Após a definição dos dados na instância, define a gravação
              * dos dados.
              */
-            $grupo->save();
+            $conta->save();
             /**
              * Commita todo o preparo realizado acima.
              */
@@ -128,10 +128,10 @@ class GrupoRepository {
     /**
      * Realiza a remoção do registro da entidade.
      * 
-     * @param Grupo $grupo
+     * @param Conta $conta
      * @return void
      */
-    public static function apaga(Grupo $grupo): void{
+    public static function apaga(Conta $conta): void{
         /**
          * Realiza a tentativa de apagar o registro.
          */
@@ -144,7 +144,7 @@ class GrupoRepository {
              * Prepara a deleção do registro informado via
              * parâmetro.
              */
-            $grupo->delete();
+            $conta->delete();
             /**
              * Commita as ações que foram preparadas acima.
              */

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContaController;
 use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\JwtLoginController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,10 @@ Route::middleware(['jwt.auth'])->group(function(){
          */
         Route::prefix('grupos')->group(function(){
             /**
+             * Pesquisa utilizando parâmetros
+             */
+            Route::get('/search', 'search')->name('grupos.search');
+            /**
              * Lista todos
              */
             Route::get('/', 'index')->name('grupos.index');
@@ -62,10 +67,6 @@ Route::middleware(['jwt.auth'])->group(function(){
              * Lista todos
              */
             Route::get('/{grupo}', 'find')->name('grupos.find');
-            /**
-             * Pesquisa utilizando parâmetros
-             */
-            Route::get('/search', 'search')->name('grupos.search');
             /**
              * Cria um novo registro
              */
@@ -78,6 +79,40 @@ Route::middleware(['jwt.auth'])->group(function(){
              * Apaga um registro
              */
             Route::delete('/{grupo}', 'destroy')->name('grupos.destroy');
+        });
+    });
+        /**
+     * Rotas para gerenciamento dos grupos
+     */
+    Route::controller(ContaController::class)->group(function(){
+        /**
+         * Contas
+         */
+        Route::prefix('contas')->group(function(){
+            /**
+             * Pesquisa utilizando parâmetros
+             */
+            Route::get('/search', 'search')->name('conta.search');
+            /**
+             * Lista todos
+             */
+            Route::get('/', 'index')->name('conta.index');
+            /**
+             * Lista todos
+             */
+            Route::get('/{conta}', 'find')->name('conta.find');
+            /**
+             * Cria um novo registro
+             */
+            Route::post('/', 'store')->name('conta.store');
+            /**
+             * Atualiza um registro
+             */
+            Route::put('/{conta}', 'update')->name('conta.update');
+            /**
+             * Apaga um registro
+             */
+            Route::delete('/{conta}', 'destroy')->name('conta.destroy');
         });
     });
 

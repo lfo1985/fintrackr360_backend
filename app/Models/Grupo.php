@@ -15,7 +15,7 @@ class Grupo extends Model
     protected $fillable = ['nome', 'created_by'];
 
     public function scopeNome($query, $value){
-        $query->where('nome', $value);
+        $query->where('nome', 'LIKE', '%'.$value.'%');
     }
 
 }
