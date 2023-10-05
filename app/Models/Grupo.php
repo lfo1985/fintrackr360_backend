@@ -14,6 +14,10 @@ class Grupo extends Model
     protected $keyType = 'int';
     protected $fillable = ['nome', 'created_by'];
 
+    /**
+     * ESCOPOS
+     */
+
     public function scopeNome($query, $value){
         $query->where('nome', 'LIKE', '%'.$value.'%');
     }

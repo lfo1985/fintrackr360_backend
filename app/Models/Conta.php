@@ -25,7 +25,19 @@ class Conta extends Model
         'id_grupo'
     ];
 
+    /**
+     * ESCOPOS
+     */
+
     public function scopePorTitulo($query, $value){
         return $query->where('titulo', 'LIKE', '%'.$value.'%');
+    }
+
+    /**
+     * RELACIONAMENTOS
+     */
+    
+    public function grupo(){
+        return $this->hasOne(Grupo::class, 'id', 'id_grupo');
     }
 }

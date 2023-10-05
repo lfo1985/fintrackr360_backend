@@ -20,7 +20,11 @@ class ContaResource extends JsonResource
             'titulo' => $this->titulo,
             'natureza' => $this->natureza,
             'descricao' => $this->descricao,
-            'valor' => $this->valor,
+            'valor' => str2dec($this->valor),
+            'grupo' => [
+                'id' => $this->grupo->id,
+                'nome' => $this->grupo->nome
+            ]
         ];
     }
 }

@@ -20,7 +20,11 @@ class ContaCollection extends ResourceCollection
                 'id_grupo' => $item->id_grupo,
                 'titulo' => $item->titulo,
                 'natureza' => $item->natureza,
-                'valor' => $item->valor,
+                'valor' => dec2str($item->valor),
+                'grupo' => [
+                    'id' => $item->grupo->id,
+                    'nome' => $item->grupo->nome,
+                ]
             ];
         });
 

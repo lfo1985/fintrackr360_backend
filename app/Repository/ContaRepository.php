@@ -6,7 +6,10 @@ use App\Models\Conta;
 use Illuminate\Support\Facades\DB;
 
 class ContaRepository {
-
+    /**
+     * @var int quantidade de itens por pagina
+     */
+    const POR_PAG = 10;
     /**
      * Obtem todos os registros da tabela
      * 
@@ -16,7 +19,7 @@ class ContaRepository {
         /**
          * Retorna todos os registros com paginação
          */
-        return Conta::paginate();
+        return Conta::paginate(self::POR_PAG);
     }
 
     /**
