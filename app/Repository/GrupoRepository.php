@@ -6,7 +6,10 @@ use App\Models\Grupo;
 use Illuminate\Support\Facades\DB;
 
 class GrupoRepository {
-
+    /**
+     * @var int quantidade de itens por pagina
+     */
+    const POR_PAG = 20;
     /**
      * Obtem todos os registros da tabela
      * 
@@ -16,7 +19,7 @@ class GrupoRepository {
         /**
          * Retorna todos os registros com paginação
          */
-        return Grupo::paginate();
+        return Grupo::paginate(self::POR_PAG);
     }
 
     /**
