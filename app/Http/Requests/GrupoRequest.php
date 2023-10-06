@@ -24,5 +24,9 @@ class GrupoRequest extends Requests {
             excecao("Nome é obrigatório");
         }
     }
+
+    protected function parseData(){
+        //
+    }
     
 }

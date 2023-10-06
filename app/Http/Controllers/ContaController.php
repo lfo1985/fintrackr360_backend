@@ -8,6 +8,7 @@ use App\Http\Resources\ContaCollection;
 use App\Http\Resources\ContaResource;
 use App\Models\Conta;
 use App\Repository\ContaRepository;
+use App\Repository\PeriodoRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -48,6 +49,7 @@ class ContaController extends Controller
          */
         return new ContaResource(ContaRepository::seleciona($conta));
     }
+
     /**
      * Cria um novo registro
      * 
@@ -62,17 +64,25 @@ class ContaController extends Controller
             /**
              * Chama o método para criação do registro
              */
-            ContaRepository::cria([
+            $conta = ContaRepository::cria([
                 'id_grupo' => $contaRequest->id_grupo,
                 'titulo' => $contaRequest->titulo,
                 'natureza' => $contaRequest->natureza,
                 'descricao' => $contaRequest->descricao,
                 'valor' => $contaRequest->valor
             ]);
+            
+            PeriodoRepository::salvarPeriodos(
+                $contaRequest, 
+                $conta->id, 
+                $contaRequest->data_vencimento,
+                'ADICIONAR'
+            );
+
             /**
              * Retorna se houve sucesso
              */
-            return sucesso('Grupo salvo com sucesso!');
+            return sucesso('Conta salva com sucesso!');
         } catch (\Exception $e) {
             /**
              * Em caso de erro, retorna a exceção
@@ -101,6 +111,14 @@ class ContaController extends Controller
                 'descricao' => $contaRequest->descricao,
                 'valor' => $contaRequest->valor
             ], $conta);
+
+            PeriodoRepository::salvarPeriodos(
+                $contaRequest, 
+                $conta->id, 
+                $contaRequest->data_vencimento,
+                'EDITAR'
+            );
+
             /**
              * Retorno de sucesso
              */
@@ -135,4 +153,5 @@ class ContaController extends Controller
             return erro($e->getMessage());
         }
     }
+
 }

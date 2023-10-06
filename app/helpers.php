@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 function sucesso($msg, $options = []){
     $sucesso = [
         'sucesso' => true, 
@@ -44,6 +46,22 @@ function str2dec($valor){
 function dec2str($valor, $casasDecimais = 2){
     if($valor){
         return (string) number_format($valor, $casasDecimais, ',', '.');
+    } else {
+        return null;
+    }
+}
+
+function dataBR2Date($data){
+    if($data){
+        return Carbon::createFromFormat('d/m/Y', $data)->format('Y-m-d');
+    } else {
+        return null;
+    }
+}
+
+function adMeses($data, $mes){
+    if($data){
+        return Carbon::parse($data)->addMonths($mes)->format('Y-m-d');
     } else {
         return null;
     }

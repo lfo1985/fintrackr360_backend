@@ -20,6 +20,7 @@ class ContaRequest extends Requests {
     protected function parseData($request){
 
         $request->valor = str2dec($request->valor);
+        $request->data_vencimento = dataBR2Date($request->data_vencimento);
         
         return $request;
     }

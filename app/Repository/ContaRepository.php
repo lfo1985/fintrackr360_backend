@@ -42,7 +42,7 @@ class ContaRepository {
      * @param array $dados
      * @param void
      */
-    public static function cria(array $dados): void{
+    public static function cria(array $dados): Conta{
         /**
          * Realiza a tentativa de criar o registro no banco de dados.
          */
@@ -71,6 +71,10 @@ class ContaRepository {
              * banco de dados.
              */
             DB::commit();
+            /**
+             * Retorna o objeto da entidade
+             */
+            return $conta;
         } catch (\PDOException $e) {
             /**
              * Se ocorrer qualquer exceção, realiza o rollBack()
