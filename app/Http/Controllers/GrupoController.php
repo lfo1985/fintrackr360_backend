@@ -24,6 +24,9 @@ class GrupoController extends Controller
          */
         return new GrupoCollection(GrupoRepository::selecionaTodos());
     }
+    public function searchNoPaginate(){
+        return new GrupoCollection(GrupoRepository::selecionaTodosSemPaginacao());
+    }
     /**
      * Rota para pesquisa de dados.
      * 

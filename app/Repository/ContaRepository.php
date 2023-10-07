@@ -15,11 +15,13 @@ class ContaRepository {
      * 
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
-    public static function selecionaTodos(): \Illuminate\Pagination\LengthAwarePaginator{
+    public static function selecionaTodos($grupo){
         /**
          * Retorna todos os registros com paginação
          */
-        return Conta::paginate(self::POR_PAG);
+        return Conta::where('id_grupo', $grupo->id)
+            ->with('grupo', 'periodo')
+            ->paginate(self::POR_PAG);
     }
 
     /**

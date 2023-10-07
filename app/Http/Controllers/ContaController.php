@@ -7,6 +7,7 @@ use App\Http\Requests\ContaRequest;
 use App\Http\Resources\ContaCollection;
 use App\Http\Resources\ContaResource;
 use App\Models\Conta;
+use App\Models\Grupo;
 use App\Repository\ContaRepository;
 use App\Repository\PeriodoRepository;
 use Illuminate\Http\JsonResponse;
@@ -19,11 +20,11 @@ class ContaController extends Controller
      * 
      * @return ContaCollection
      */
-    public function index(){
+    public function index(Grupo $grupo){
         /**
          * Realiza a seleção de todos os regsitros e retorna na collection.
          */
-        return new ContaCollection(ContaRepository::selecionaTodos());
+        return new ContaCollection(ContaRepository::selecionaTodos($grupo));
     }
     /**
      * Rota para pesquisa de dados.

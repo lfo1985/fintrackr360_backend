@@ -24,6 +24,10 @@ class ContaResource extends JsonResource
             'grupo' => [
                 'id' => $this->grupo->id,
                 'nome' => $this->grupo->nome
+            ],
+            'periodo' => [
+                'id' => $this->periodo->id,
+                'valor' => $this->periodo->valor,
             ]
         ];
     }

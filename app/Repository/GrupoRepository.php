@@ -22,6 +22,10 @@ class GrupoRepository {
         return Grupo::paginate(self::POR_PAG);
     }
 
+    public static function selecionaTodosSemPaginacao(){
+        return Grupo::all();
+    }
+
     /**
      * Obtem apenas um registro de acordo com o ID informado
      * 

@@ -34,10 +34,23 @@ class Conta extends Model
     }
 
     /**
+     * ACESSORES
+     */
+
+    public function getValorParcelaAttribute(){
+        $totalParcelas = $this->periodo->count();
+        return dec2str($this->valor / $totalParcelas);
+    }
+
+    /**
      * RELACIONAMENTOS
      */
     
     public function grupo(){
         return $this->hasOne(Grupo::class, 'id', 'id_grupo');
+    }
+    
+    public function periodo(){
+        return $this->hasMany(Periodo::class, 'id_conta', 'id');
     }
 }

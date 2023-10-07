@@ -60,6 +60,10 @@ Route::middleware(['jwt.auth'])->group(function(){
              */
             Route::get('/search', 'search')->name('grupos.search');
             /**
+             * Pesquisa utilizando parâmetros
+             */
+            Route::get('/search-no-paginate', 'searchNoPaginate')->name('conta.search-no-paginate');
+            /**
              * Lista todos
              */
             Route::get('/', 'index')->name('grupos.index');
@@ -90,13 +94,13 @@ Route::middleware(['jwt.auth'])->group(function(){
          */
         Route::prefix('contas')->group(function(){
             /**
+             * Lista todos
+             */
+            Route::get('/grupo/{grupo}', 'index')->name('conta.grupo.index');
+            /**
              * Pesquisa utilizando parâmetros
              */
             Route::get('/search', 'search')->name('conta.search');
-            /**
-             * Lista todos
-             */
-            Route::get('/', 'index')->name('conta.index');
             /**
              * Lista todos
              */
