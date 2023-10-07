@@ -66,11 +66,11 @@ Route::middleware(['jwt.auth'])->group(function(){
             /**
              * Lista todos
              */
-            Route::get('/', 'index')->name('grupos.index');
+            Route::get('/{grupo}', 'find')->name('grupos.find');
             /**
              * Lista todos
              */
-            Route::get('/{grupo}', 'find')->name('grupos.find');
+            Route::get('/', 'index')->name('grupos.index');
             /**
              * Cria um novo registro
              */
@@ -93,6 +93,10 @@ Route::middleware(['jwt.auth'])->group(function(){
          * Contas
          */
         Route::prefix('contas')->group(function(){
+            /**
+             * Retorns os tipos configurados
+             */
+            Route::get('/dependencias', 'dependencias')->name('conta.dependencias');
             /**
              * Lista todos
              */

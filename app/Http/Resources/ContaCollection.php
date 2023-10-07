@@ -19,6 +19,8 @@ class ContaCollection extends ResourceCollection
                 'id' => $item->id,
                 'id_grupo' => $item->id_grupo,
                 'titulo' => $item->titulo,
+                'tipo' => $item->tipo,
+                'nome_tipo' => $item->nome_tipo,
                 'natureza' => $item->natureza,
                 'valor_parcela' => $item->valor_parcela,
                 'valor' => dec2str($item->valor),

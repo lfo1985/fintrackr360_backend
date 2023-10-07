@@ -59,6 +59,14 @@ function dataBR2Date($data){
     }
 }
 
+function date2DataBR($data){
+    if($data){
+        return Carbon::createFromFormat('Y-m-d', $data)->format('d/m/Y');
+    } else {
+        return null;
+    }
+}
+
 function adMeses($data, $mes){
     if($data){
         return Carbon::parse($data)->addMonths($mes)->format('Y-m-d');

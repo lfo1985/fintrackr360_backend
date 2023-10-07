@@ -164,13 +164,35 @@ class PeriodoRepository {
                 /**
                  * Em caso de criação das parcelas, chama o método de criação
                  */
-                self::cria([
+                $dados = [
                     'id_conta' => $id_conta,
-                    'numero' => $i,
-                    'total' => $request->periodos,
                     'valor' => $valor,
                     'data_vencimento' => adMeses($request->data_vencimento, $i - 1)
-                ]);
+                ];
+                /**
+                 * Verifica se o tipo de conta é recorrente ou a vista; neste cenário
+                 * a conta é registrado com total de periodos e numero igial a 1.
+                 */
+                if($request->tipo == 'RECORRENTE' || $request->tipo == 'A_VISTA'){
+                    /**
+                     * Adiciona no array
+                     */
+                    $dados = $dados + [
+                        'numero' => '1',
+                        'total' => '1'
+                    ];
+
+                } else if($request->tipo == 'PARCELADO'){
+                    /**
+                     * Adiciona no array
+                     */
+                    $dados = $dados + [
+                        'numero' => $i,
+                        'total' => $request->periodos,
+                    ];
+
+                }
+                self::cria($dados);
 
             }
 

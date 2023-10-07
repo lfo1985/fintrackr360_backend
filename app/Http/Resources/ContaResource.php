@@ -20,15 +20,15 @@ class ContaResource extends JsonResource
             'titulo' => $this->titulo,
             'natureza' => $this->natureza,
             'descricao' => $this->descricao,
+            'tipo' => $this->tipo,
+            'periodos' => $this->periodo->count(),
+            'data_vencimento' => date2DataBR($this->periodo[0]->data_vencimento),
             'valor' => str2dec($this->valor),
             'grupo' => [
                 'id' => $this->grupo->id,
                 'nome' => $this->grupo->nome
             ],
-            'periodo' => [
-                'id' => $this->periodo->id,
-                'valor' => $this->periodo->valor,
-            ]
+            'periodo' => $this->periodo
         ];
     }
 }

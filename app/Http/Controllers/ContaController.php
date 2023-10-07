@@ -9,6 +9,7 @@ use App\Http\Resources\ContaResource;
 use App\Models\Conta;
 use App\Models\Grupo;
 use App\Repository\ContaRepository;
+use App\Repository\GrupoRepository;
 use App\Repository\PeriodoRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -70,6 +71,7 @@ class ContaController extends Controller
                 'titulo' => $contaRequest->titulo,
                 'natureza' => $contaRequest->natureza,
                 'descricao' => $contaRequest->descricao,
+                'tipo' => $contaRequest->tipo,
                 'valor' => $contaRequest->valor
             ]);
             
@@ -153,6 +155,46 @@ class ContaController extends Controller
              */
             return erro($e->getMessage());
         }
+    }
+
+    /**
+     * Retorn os tipos configurados para as contas
+     * 
+     * @return array
+     */
+    public function dependencias(): array{
+        /**
+         * Retorna todos os tipos configurados para as contas
+         */
+        $keysNatureza = array_keys(ContaRepository::getNaturezas());
+        $valuesNatureza = array_values(ContaRepository::getNaturezas());
+
+        $naturezas = [];
+
+        foreach ($keysNatureza as $i => $key) {
+            $naturezas[] = [
+                'id' => $key,
+                'nome' => $valuesNatureza[$i]
+            ];
+        }
+        
+        $keysTipos = array_keys(ContaRepository::getTipos());
+        $valuesTipos = array_values(ContaRepository::getTipos());
+
+        $tipos = [];
+
+        foreach ($keysTipos as $i => $key) {
+            $tipos[] = [
+                'id' => $key,
+                'nome' => $valuesTipos[$i]
+            ];
+        }
+
+        return [
+            'tipos' => $tipos,
+            'natureza' => $naturezas,
+            'grupos' => GrupoRepository::selecionaTodosSemPaginacao()
+        ];
     }
 
 }

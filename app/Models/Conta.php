@@ -22,7 +22,19 @@ class Conta extends Model
         'descricao', 
         'valor',
         'created_by',
-        'id_grupo'
+        'id_grupo',
+        'tipo'
+    ];
+
+    private static $tipos = [
+        'PARCELADO' => 'Parcelado',
+        'A_VISTA'=> 'À vista',
+        'RECORRENTE' => 'Recorrente'
+    ];
+
+    private static $naturezas = [
+        'C' => 'Crédito',
+        'D'=> 'Débito'
     ];
 
     /**
@@ -40,6 +52,26 @@ class Conta extends Model
     public function getValorParcelaAttribute(){
         $totalParcelas = $this->periodo->count();
         return dec2str($this->valor / $totalParcelas);
+    }
+
+    public function getNomeTipoAttribute(){
+        return self::$tipos[$this->tipo];
+    }
+
+    public function getNomeNaturezaAttribute(){
+        return self::$naturezas[$this->natureza];
+    }
+
+    /**
+     * MÉTODOS
+     */
+
+    public static function getTipos(){
+        return self::$tipos;
+    }
+
+    public static function getNaturezas(){
+        return self::$naturezas;
     }
 
     /**

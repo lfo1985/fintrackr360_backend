@@ -171,4 +171,24 @@ class ContaRepository {
         }
     }
 
+    /**
+     * Retorna os tipos das contas
+     */
+    public static function getTipos(){
+        /**
+         * Retorna os tipos que foram pegos no modelo de conta
+         */
+        return Conta::getTipos();
+    }
+
+    /**
+     * Retorna os tipos das contas
+     */
+    public static function getNaturezas(){
+        /**
+         * Retorna os tipos que foram pegos no modelo de conta
+         */
+        return Conta::getNaturezas();
+    }
+
 }
