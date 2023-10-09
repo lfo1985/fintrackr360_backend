@@ -26,15 +26,14 @@ class RelatorioCollection extends ResourceCollection
                         'natureza' => $conta->natureza,
                         'descricao' => $conta->descricao,
                         'tipo' => $conta->tipo,
-                        'periodo' => $conta->periodo->map(function($periodo) use ($conta){
-                            return [
-                                'numero' => $periodo->numero,
-                                'total' => $periodo->total,
-                                'valor' => $periodo->valor,
-                                'valor_formatado' => dec2str($conta->natureza == 'D' ? 0-$periodo->valor : $periodo->valor),
-                                'data_vencimento' => date2DataBR($periodo->data_vencimento),
-                            ];
-                        })
+                        'periodo' => [
+                            'numero' => $conta->periodo->numero,
+                            'total' => $conta->periodo->total,
+                            'valor' => $conta->periodo->valor,
+                            'valor_formatado' => dec2str($conta->natureza == 'D' ? 0-$conta->periodo->valor : $conta->periodo->valor),
+                            'data_vencimento' => date2DataBR($conta->periodo->data_vencimento),
+                            'status' => $conta->periodo->status,
+                        ]
                     ];
                 }),
             ];

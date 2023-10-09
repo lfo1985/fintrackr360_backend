@@ -18,7 +18,7 @@ class RelatorioController extends Controller{
         /**
          * Realiza a consulta e organiza numa collection
          */
-        return new RelatorioCollection(RelatorioRepository::selecionar($mes, $ano));
+        return exibe(RelatorioRepository::selecionar($mes, $ano));
     }
     /**
      * Retorna todos os dados para utilizar no filtro de busca

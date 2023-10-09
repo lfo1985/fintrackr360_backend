@@ -26,8 +26,8 @@ class Grupo extends Model
      * RELACIONAMENTOS
      */
     
-     public function conta(){
-        return $this->hasMany(Conta::class, 'id_grupo', 'id');
+     public function contaPeriodo(){
+        return $this->hasManyThrough(Periodo::class, Conta::class, 'id_grupo', 'id_conta', 'id', 'id');
     }
 
 }

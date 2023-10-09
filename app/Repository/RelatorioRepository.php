@@ -26,15 +26,60 @@ class RelatorioRepository {
          */
         $dados = [];
 
-        $dados = Grupo::with(['conta', 'conta.periodo' => function($query) use($data1, $data2){
-            $query->where('data_vencimento', '>=', $data1);
-            $query->where('data_vencimento', '<=', $data2);
-        }])->get();
+        $dados = DB::table('grupos')
+            ->join('contas', 'grupos.id', '=', 'contas.id_grupo')
+            ->join('periodos', 'contas.id', '=', 'periodos.id_conta')
+            ->select([
+                'grupos.id',
+                'grupos.nome AS nome_grupo',
+                'contas.titulo',
+                'contas.natureza',
+                'contas.descricao',
+                'contas.tipo',
+                'periodos.id_conta',
+                'periodos.id AS id_periodo',
+                'periodos.numero',
+                'periodos.total',
+                'periodos.valor',
+                'periodos.data_vencimento',
+                'periodos.status',
+            ])
+            ->where('data_vencimento', '>=', $data1)
+            ->where('data_vencimento', '<=', $data2)
+            ->get();
+
+        $resultado = [];
+
+        foreach ($dados as $i => $itens) {
+
+            $resultado[$itens->id]['id'] = $itens->id;
+            $resultado[$itens->id]['nome'] = $itens->nome_grupo;
+
+            $conta = [
+                'id' => $itens->id_conta,
+                'titulo' => $itens->titulo,
+                'natureza' => $itens->natureza,
+                'descricao' => $itens->descricao,
+                'tipo' => $itens->tipo,
+                'periodo' => [
+                    'numero' => $itens->numero,
+                    'total' => $itens->total,
+                    'valor' => $itens->valor,
+                    'valor_formatado' => $itens->natureza == 'D' ? dec2str(0-$itens->valor) : dec2str($itens->valor),
+                    'data_vencimento' => $itens->data_vencimento,
+                    'status' => $itens->status,
+                ]
+            ];
+
+            $resultado[$itens->id]['conta'][] = $conta;
+        }
+        
+        sort($resultado);
 
         /**
          * Retorna os dados
          */
-        return $dados;
+        return $resultado;
     }
 
     public static function resultado(){

@@ -37,9 +37,6 @@ class Periodo extends Model
     /**
      * ACESSORES
      */
-
-    public function getValorFormatadoAttribute(){
-        return $this->valor;
-    }
+    
     
 }
