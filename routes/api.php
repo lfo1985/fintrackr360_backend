@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContaController;
 use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\JwtLoginController;
+use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -85,7 +86,7 @@ Route::middleware(['jwt.auth'])->group(function(){
             Route::delete('/{grupo}', 'destroy')->name('grupos.destroy');
         });
     });
-        /**
+    /**
      * Rotas para gerenciamento dos grupos
      */
     Route::controller(ContaController::class)->group(function(){
@@ -121,6 +122,28 @@ Route::middleware(['jwt.auth'])->group(function(){
              * Apaga um registro
              */
             Route::delete('/{conta}', 'destroy')->name('conta.destroy');
+        });
+    });
+    /**
+     * Rotas do relatório
+     */
+    Route::controller(RelatorioController::class)->group(function(){
+        /**
+         * Relatório
+         */
+        Route::prefix('relatorio')->group(function(){
+            /**
+             * Seleciona os dados
+             */
+            Route::get('/{mes}/{ano}', 'index')->name('relatorio.index');
+            /**
+             * Dados para filtragem
+             */
+            Route::get('/dados-filtro', 'dadosFitro')->name('relatorio.dadosFitro');
+            /**
+             * Dados para filtragem
+             */
+            Route::get('/resultado', 'resultado')->name('relatorio.resultado');
         });
     });
 

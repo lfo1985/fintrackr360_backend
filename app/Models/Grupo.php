@@ -22,4 +22,12 @@ class Grupo extends Model
         $query->where('nome', 'LIKE', '%'.$value.'%');
     }
 
+    /**
+     * RELACIONAMENTOS
+     */
+    
+     public function conta(){
+        return $this->hasMany(Conta::class, 'id_grupo', 'id');
+    }
+
 }

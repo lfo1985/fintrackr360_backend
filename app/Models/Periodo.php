@@ -33,5 +33,13 @@ class Periodo extends Model
     public function conta(){
         return $this->hasOne(Conta::class, 'id', 'id_conta');
     }
+
+    /**
+     * ACESSORES
+     */
+
+    public function getValorFormatadoAttribute(){
+        return $this->valor;
+    }
     
 }

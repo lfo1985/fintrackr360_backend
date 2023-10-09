@@ -74,3 +74,42 @@ function adMeses($data, $mes){
         return null;
     }
 }
+
+function meses(){
+
+    $meses = [];
+    
+    for ($i = 1; $i <= 12 ; $i++) {
+        
+        $timestamp = mktime(
+                        0, 
+                        0, 
+                        0, 
+                        str_pad($i, 2, 0, STR_PAD_LEFT), 
+                        1, 
+                        date('Y')
+                    );
+        
+        $meses[] = [
+            'numero' => date('m', $timestamp),
+            'nome' => date('F', $timestamp)
+        ];
+
+    }
+
+    return $meses;
+}
+
+function anos(){
+    
+    $anoInicio = (int) date('Y', strtotime('-2 Years'));
+    $anoFim = (int) date('Y', strtotime('+3 years'));
+    $anos = [];
+    
+    for ($ano = $anoInicio; $ano <= $anoFim ; $ano++) { 
+        $anos[] = $ano;
+    }
+
+    return $anos;
+
+}
