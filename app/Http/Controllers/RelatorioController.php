@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RelatorioCollection;
+use App\Models\Periodo;
+use App\Repository\PeriodoRepository;
 use App\Repository\RelatorioRepository;
+use Illuminate\Http\Request;
 
 class RelatorioController extends Controller{
     
@@ -40,6 +43,38 @@ class RelatorioController extends Controller{
 
         return exibe(RelatorioRepository::resultado());
 
+    }
+
+    public function definirStatus(Periodo $periodo, $status){
+
+        try {
+
+            RelatorioRepository::definirStatus($periodo, $status);
+
+            return sucesso('Status atualizado para '.$status);
+
+        } catch (\Exception $e) {
+
+            return erro($e->getMessage());
+
+        }
+        
+    }
+
+    public function definirStatusTodos(Request $request){
+
+        try {
+
+            RelatorioRepository::definirStatusTodos($request, 'PAGO');
+
+            return sucesso('Status atualizado para PAGO');
+
+        } catch (\Exception $e) {
+
+            return erro($e->getMessage());
+
+        }
+        
     }
 
 }

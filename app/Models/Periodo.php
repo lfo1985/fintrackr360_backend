@@ -25,6 +25,8 @@ class Periodo extends Model
         'status',
         'created_by'
     ];
+    const PAGO = 'PAGO';
+    const PENDENTE = 'PENDENTE';
 
     /**
      * RELACIONAMENTOS

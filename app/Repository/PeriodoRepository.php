@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\Conta;
 use App\Models\Periodo;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PeriodoRepository {
@@ -19,7 +20,6 @@ class PeriodoRepository {
          */
         return Periodo::where('id_conta', $id_conta)->get();
     }
-
     /**
      * Cria o registro no banco de dados
      * 
@@ -227,5 +227,39 @@ class PeriodoRepository {
             }
 
         }   
+    }
+    /**
+     * Define o período como pago.
+     */
+    public static function definirStatus(Periodo $periodo, $status){
+        
+        if($status == Periodo::PAGO){
+            $periodo->status = Periodo::PAGO;
+        } else {
+            $periodo->status = Periodo::PENDENTE;
+        }
+        
+        return $periodo->save();
+    }
+    
+    public static function definirStatusTodos(Request $request, $status){
+
+        foreach ($request->periodos as $idPeriodo) {
+            
+            $statusDefinido = '';
+            if($status == Periodo::PAGO){
+                $statusDefinido = Periodo::PAGO;
+            } else {
+                $statusDefinido = Periodo::PENDENTE;
+            }
+            
+            Periodo::where('id', $idPeriodo)->update([
+                'status' => $statusDefinido
+            ]);
+
+        }
+
+        return true;
+
     }
 }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RelatorioRepository {
@@ -62,6 +63,7 @@ class RelatorioRepository {
                 'descricao' => $itens->descricao,
                 'tipo' => $itens->tipo,
                 'periodo' => [
+                    'id' => $itens->id_periodo,
                     'numero' => $itens->numero,
                     'total' => $itens->total,
                     'valor' => $itens->valor,
@@ -138,6 +140,18 @@ class RelatorioRepository {
         }
 
         return $dadosComSaldoFormatados;
+
+    }
+
+    public static function definirStatus(Periodo $periodo, $status){
+
+        return PeriodoRepository::definirStatus($periodo, $status);
+        
+    }
+
+    public static function definirStatusTodos(Request $request, $status){
+
+        return PeriodoRepository::definirStatusTodos($request, $status);
 
     }
 }

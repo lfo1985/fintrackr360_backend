@@ -144,6 +144,14 @@ Route::middleware(['jwt.auth'])->group(function(){
              * Dados para filtragem
              */
             Route::get('/resultado', 'resultado')->name('relatorio.resultado');
+            /**
+             * Definição de status
+             */
+            Route::patch('/definir-status/{periodo}/{status}', 'definirStatus')->name('relatorio.definir-staus');
+            /**
+             * Definição de status
+             */
+            Route::patch('/definir-status-todas', 'definirStatusTodos')->name('relatorio.pagar-todas');
         });
     });
 
