@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Throwable;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class Handler extends ExceptionHandler
 {
@@ -37,6 +38,7 @@ class Handler extends ExceptionHandler
      * @return void
      */
     public function register(){
+
         $this->renderable(function (NotFoundHttpException $e, Request $request) {
             return erro('Rota não encontrada!', 404);
         });
@@ -44,9 +46,14 @@ class Handler extends ExceptionHandler
         $this->renderable(function (UnauthorizedHttpException $e, Request $request) {
             return erro($e->getMessage(), 401);
         });
+        
+        $this->renderable(function (TokenExpiredException $e, Request $request) {
+            return erro($e->getMessage(), 401);
+        });
 
         $this->renderable(function (Throwable $e, Request $request) {
             return erro($e->getMessage(), 500);
         });
+        
     }
 }

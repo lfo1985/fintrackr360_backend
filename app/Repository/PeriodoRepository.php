@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Models\Conta;
 use App\Models\Periodo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +17,10 @@ class PeriodoRepository {
         /**
          * Retorna todos os registros com paginação
          */
-        return Periodo::where('id_conta', $id_conta)->get();
+        return Periodo::where('id_conta', $id_conta)
+            ->where('created_by', auth()
+            ->user()->id)
+            ->get();
     }
     /**
      * Cria o registro no banco de dados

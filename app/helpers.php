@@ -19,10 +19,7 @@ function erro($msg, $codigo = 400){
 
 function exibe($dados){
     if(count($dados) == 0){
-        $dados = [
-            'sucesso' =>false,
-            'msg' => 'Nenhum resultado encontrado!'
-        ];
+        $dados = [];
     }
     return \response()->json($dados);
 }

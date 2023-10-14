@@ -9,7 +9,7 @@ class ContaRepository {
     /**
      * @var int quantidade de itens por pagina
      */
-    const POR_PAG = 10;
+    const POR_PAG = 20;
     /**
      * Obtem todos os registros da tabela
      * 
@@ -21,6 +21,7 @@ class ContaRepository {
          */
         return Conta::where('id_grupo', $grupo->id)
             ->with('grupo', 'periodo')
+            ->where('created_by', auth()->user()->id)
             ->paginate(self::POR_PAG);
     }
 

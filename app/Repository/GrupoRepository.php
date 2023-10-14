@@ -19,11 +19,11 @@ class GrupoRepository {
         /**
          * Retorna todos os registros com paginação
          */
-        return Grupo::paginate(self::POR_PAG);
+        return Grupo::where('created_by', auth()->user()->id)->paginate(self::POR_PAG);
     }
 
     public static function selecionaTodosSemPaginacao(){
-        return Grupo::all();
+        return Grupo::where('created_by', auth()->user()->id)->get();
     }
 
     /**
