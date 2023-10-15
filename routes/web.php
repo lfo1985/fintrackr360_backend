@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    $qtdMes = 0;
+    for ($i = 1; $i <= 36 ; $i++) { 
+        echo date('Y-m-15', strtotime('+'.$qtdMes.' months')).'<br>';
+        $qtdMes++;
+    }
 });
