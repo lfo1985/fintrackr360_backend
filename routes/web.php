@@ -21,3 +21,8 @@ Route::get('/', function () {
         $qtdMes++;
     }
 });
+
+
+Route::get('/teste', function () {
+    echo 'Ola, minha rota bugada!';
+});
